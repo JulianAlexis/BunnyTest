@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getLinkedinProfile, getTorreBioProfile} from '../../utils/api';
-import { parse } from 'path';
-
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css'
 
 export default class MyProfile extends Component {
   constructor(props){
@@ -25,13 +25,11 @@ export default class MyProfile extends Component {
   }
 
   componentWillMount() {
-    console.log("se va a montar el componente perfiles");
     getLinkedinProfile()
       .then( response => {
         this.setState({
           linkedinProfile: response.data
         })
-        console.log("el response de linkedin es ", response.data);
       })
       .catch(error => console.log(error));
     getTorreBioProfile()
@@ -39,32 +37,54 @@ export default class MyProfile extends Component {
       this.setState({
         torreBioProfile: response.data.person
       })
-      console.log("el response de torre Bio es ", response.data.person);
-
-    })
-    
+    })    
   };
   
   renderItes=()=>{
-    const { itemslin}= this.state.linkedinProfile;
-    const { itemsbio}= this.state.torreBioProfile;
     const merge = { ...this.state.linkedinProfile, ...this.state.torreBioProfile};
     
-
-    return merge;
     console.log("objetos mezclados " , merge);
+    return merge;
   }
 
   render() {    
-    const { linkedinProfile } = this.state;
     let data = this.renderItes();
 
     return (
       <React.Fragment>
         <div className="post-preview">
-          <p>Estamos viendo el perfil</p>
-        <div><pre>{JSON.stringify(data, null, 2) }</pre></div>;
-          <p>  {linkedinProfile.name} {linkedinProfile.surname} </p>
+          <p>Perfil combinado de LinkedIn y TorreBio</p>
+          <Table>
+           
+              <Tr>
+                <Th>Id</Th>
+                <Td>{data.id}</Td>
+              </Tr>
+              <Tr>
+                <Th>PublicId</Th>
+                <Td>{data.publicId}</Td>
+              </Tr>
+              <Tr>
+                <Th>Name</Th>
+                <Td>{data.name}</Td>
+              </Tr>
+              <Tr>
+                <Th>Surname</Th>
+                <Td>{data.surname}</Td>
+              </Tr>
+              <Tr>
+                <Th>Email</Th>
+                <Td>{data.email} </Td>
+              </Tr>
+              <Tr>
+                <Th>Profession</Th>
+                <Td>{data.professionalHeadline} </Td>
+              </Tr>
+              <Tr>
+                <Th>Location</Th>
+                <Td>{data.location} </Td>
+              </Tr>          
+          </Table>
       
         </div>
         <hr />
