@@ -40,7 +40,6 @@ app.get('/linkedin/auth',(req,res)=>{
       perfilLinkedin.nombre = linkedInProfile.firstName['localized'].es_ES;
       perfilLinkedin.apellido = linkedInProfile.lastName['localized'].es_ES
       
-      console.log("perfil de linkedin: " ,perfilLinkedin);
       res.redirect('http://localhost:3000/myprofile/')
     })
     .catch((e)=>{
@@ -55,7 +54,6 @@ app.get('/getLinkedinProfile',(req, res)=>{
     name: perfilLinkedin.nombre,
     surname: perfilLinkedin.apellido
   }
-  console.log("funcion devuelve perfil " , linkedinProfile);
   res.json({
     name: perfilLinkedin.nombre,
     surname: perfilLinkedin.apellido
@@ -75,7 +73,6 @@ app.get('/getTorreProfile',(req,res)=>{
     if (error) throw new Error(error);
     var result = JSON.parse( body );
     let torrebioProfile = result;
-    console.log("el perfil de torre bio es:" , torrebioProfile);
     res.send(result);  
   })
 })

@@ -41,9 +41,7 @@ export default class MyProfile extends Component {
   };
   
   renderItes=()=>{
-    const merge = { ...this.state.linkedinProfile, ...this.state.torreBioProfile};
-    
-    console.log("objetos mezclados " , merge);
+    const merge = { ...this.state.linkedinProfile, ...this.state.torreBioProfile};    
     return merge;
   }
 
